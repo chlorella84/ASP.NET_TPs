@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BO;
+using Mod5_TP2.Database;
+using Mod5_TP2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,50 +14,86 @@ namespace Mod5_TP2.Controllers
         // GET: Pizza
         public ActionResult Index()
         {
-            return View();
+            return View(FakeDB.Instance.Pizzas);
         }
 
         // GET: Pizza/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            PizzaViewModel vm = new PizzaViewModel();
+            vm.Pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+
+            return View(vm);
         }
 
         // GET: Pizza/Create
         public ActionResult Create()
         {
-            return View();
+            PizzaViewModel vm = new PizzaViewModel();
+            vm.Pates = FakeDB.Instance.PatesDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            vm.Ingredients = FakeDB.Instance.IngredientsDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+
+            return View(vm);
         }
 
         // POST: Pizza/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PizzaViewModel vm)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid && ValidateVM(vm))
+                {
+                    Pizza pizza = vm.Pizza;
+                    pizza.Pate = FakeDB.Instance.PatesDisponibles.FirstOrDefault(x => x.Id == vm.IdPate);
+                    pizza.Ingredients = FakeDB.Instance.IngredientsDisponibles.Where(x => vm.IdSelectedIngredients.Contains(x.Id)).ToList();
+                    pizza.Id = FakeDB.Instance.Pizzas.Count == 0 ? 1 : FakeDB.Instance.Pizzas.Max(x => x.Id) + 1;
+                    FakeDB.Instance.Pizzas.Add(pizza);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    vm.Pates = FakeDB.Instance.PatesDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString()}).ToList();
 
-                return RedirectToAction("Index");
+                    vm.Ingredients = FakeDB.Instance.IngredientsDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+
+                    return View(vm);
+                }
+
             }
             catch
             {
+                vm.Pates = FakeDB.Instance.PatesDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+
+                vm.Ingredients = FakeDB.Instance.IngredientsDisponibles.Select( x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
                 return View();
             }
+        }
+        private bool ValidateVM(PizzaViewModel vm)
+        {
+            bool result = true;
+            return result;
         }
 
         // GET: Pizza/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            PizzaViewModel vm = new PizzaViewModel();
+            vm.Pates = FakeDB.Instance.PatesDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            vm.Ingredients = FakeDB.Instance.IngredientsDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            return View(vm);
         }
 
         // POST: Pizza/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(PizzaViewModel vm)
         {
             try
             {
-                // TODO: Add update logic here
+                Pizza pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == vm.Pizza.Id);
+                pizza.Nom = vm.Pizza.Nom;
+                pizza.Pate = FakeDB.Instance.PatesDisponibles.FirstOrDefault(x => x.Id == vm.IdPate);
+                pizza.Ingredients = FakeDB.Instance.IngredientsDisponibles.Where(x => vm.IdSelectedIngredients.Contains(x.Id)).ToList();
 
                 return RedirectToAction("Index");
             }
@@ -67,7 +106,10 @@ namespace Mod5_TP2.Controllers
         // GET: Pizza/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            PizzaViewModel vm = new PizzaViewModel();
+
+            vm.Pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+            return View(vm);
         }
 
         // POST: Pizza/Delete/5
@@ -76,7 +118,8 @@ namespace Mod5_TP2.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                Pizza pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+                FakeDB.Instance.Pizzas.Remove(pizza);
 
                 return RedirectToAction("Index");
             }

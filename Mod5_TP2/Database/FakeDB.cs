@@ -20,11 +20,13 @@ namespace Mod5_TP2.Database
         {
             this.IngredientsDisponibles = getIngredients();
             this.PatesDisponibles = getPates();
+            this.Pizzas = new List<Pizza>();
         }
 
 
         public List<Ingredient> IngredientsDisponibles { get; private set; }
         public List<Pate> PatesDisponibles { get; private set; }
+        public List<Pizza> Pizzas { get; private set; }
 
 
         public List<Ingredient> getIngredients()

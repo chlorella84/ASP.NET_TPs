@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Mod5_TP2.Models
 {
-    public class PizzaCreateEditViewModel
+    public class PizzaViewModel
     {
 
         public Pizza Pizza { get; set; }
