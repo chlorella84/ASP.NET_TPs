@@ -81,6 +81,20 @@ namespace Mod5_TP2.Controllers
             PizzaViewModel vm = new PizzaViewModel();
             vm.Pates = FakeDB.Instance.PatesDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
             vm.Ingredients = FakeDB.Instance.IngredientsDisponibles.Select(x => new SelectListItem { Text = x.Nom, Value = x.Id.ToString() }).ToList();
+            vm.Pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == id);
+
+            if (vm.Pizza.Pate != null)
+            {
+                vm.IdPate = vm.Pizza.Pate.Id;
+            }
+
+            if (vm.Pizza.Ingredients.Any())
+            {
+                vm.IdSelectedIngredients = vm.Pizza.Ingredients.Select(x => x.Id).ToList();
+            }
+
+
+
             return View(vm);
         }
 
