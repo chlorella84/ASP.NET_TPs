@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using BO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace BO
         public string Nom { get; set; }
        
         public Pate Pate { get; set; }
-
+        
         public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
 
 

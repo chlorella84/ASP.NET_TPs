@@ -104,11 +104,13 @@ namespace Mod5_TP2.Controllers
         {
             try
             {
-                Pizza pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == vm.Pizza.Id);
-                pizza.Nom = vm.Pizza.Nom;
-                pizza.Pate = FakeDB.Instance.PatesDisponibles.FirstOrDefault(x => x.Id == vm.IdPate);
-                pizza.Ingredients = FakeDB.Instance.IngredientsDisponibles.Where(x => vm.IdSelectedIngredients.Contains(x.Id)).ToList();
-
+                if (ModelState.IsValid && ValidateVM(vm))
+                {
+                    Pizza pizza = FakeDB.Instance.Pizzas.FirstOrDefault(x => x.Id == vm.Pizza.Id);
+                    pizza.Nom = vm.Pizza.Nom;
+                    pizza.Pate = FakeDB.Instance.PatesDisponibles.FirstOrDefault(x => x.Id == vm.IdPate);
+                    pizza.Ingredients = FakeDB.Instance.IngredientsDisponibles.Where(x => vm.IdSelectedIngredients.Contains(x.Id)).ToList();
+                }
                 return RedirectToAction("Index");
             }
             catch

@@ -16,8 +16,8 @@ namespace Mod5_TP2.Validation
         {
 
             bool result = false;
-            List<Ingredient> ingredients =  value as List<Ingredient>;
-            if (ingredients.Count() > 1 && ingredients.Count() < 6)
+            List<int> idIngredients =  value as List<int>;
+            if (idIngredients.Count() > 1 && idIngredients.Count() < 6)
             {
                 result = true;
             }
