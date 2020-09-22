@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mod5_TP2", "Mod5_TP2\Mod5_T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BO", "BO\BO.csproj", "{6066EAAA-6025-49BC-A1F3-FC6447C42CD9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mod6_TP1", "Mod6_TP1\Mod6_TP1.csproj", "{37D0A375-658E-48C8-91D2-6F8994B3F576}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BOdojo", "BO_dojo\BOdojo.csproj", "{0BBA0441-0AB7-4112-946B-521C9CEC7367}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{6066EAAA-6025-49BC-A1F3-FC6447C42CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6066EAAA-6025-49BC-A1F3-FC6447C42CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6066EAAA-6025-49BC-A1F3-FC6447C42CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37D0A375-658E-48C8-91D2-6F8994B3F576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37D0A375-658E-48C8-91D2-6F8994B3F576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37D0A375-658E-48C8-91D2-6F8994B3F576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37D0A375-658E-48C8-91D2-6F8994B3F576}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBA0441-0AB7-4112-946B-521C9CEC7367}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBA0441-0AB7-4112-946B-521C9CEC7367}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBA0441-0AB7-4112-946B-521C9CEC7367}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBA0441-0AB7-4112-946B-521C9CEC7367}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
