@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using BO;
 using Mod6_TP1.Data;
+using Mod6_TP1.Models;
 
 namespace Mod6_TP1.Controllers
 {
@@ -39,7 +40,9 @@ namespace Mod6_TP1.Controllers
         // GET: Samourais/Create
         public ActionResult Create()
         {
-            return View();
+            var vm = new SamouraiVM();
+            vm.Armes = db.Armes.ToList();
+            return View(vm);
         }
 
         // POST: Samourais/Create
@@ -47,16 +50,21 @@ namespace Mod6_TP1.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Force,Nom")] Samourai samourai)
+        public ActionResult Create(SamouraiVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Samourais.Add(samourai);
+                if(vm.IdSelectedArme.HasValue)
+                {
+                    vm.Samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
+                }
+
+                db.Samourais.Add(vm.Samourai);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            return View(samourai);
+            vm.Armes = db.Armes.ToList();
+            return View(vm);
         }
 
         // GET: Samourais/Edit/5
@@ -71,7 +79,21 @@ namespace Mod6_TP1.Controllers
             {
                 return HttpNotFound();
             }
-            return View(samourai);
+            var vm = new SamouraiVM();
+            vm.Armes = db.Armes.ToList();
+            vm.Samourai = samourai;
+
+            if (samourai.Arme != null)
+            {
+                vm.IdSelectedArme = samourai.Arme.Id;
+            }
+            else
+            {
+                vm.IdSelectedArme = null;
+            }
+
+
+            return View(vm);
         }
 
         // POST: Samourais/Edit/5
@@ -79,15 +101,29 @@ namespace Mod6_TP1.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Force,Nom")] Samourai samourai)
+        public ActionResult Edit( SamouraiVM vm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(samourai).State = EntityState.Modified;
+                var samouraiDB = db.Samourais.Find(vm.Samourai.Id);
+                samouraiDB.Nom = vm.Samourai.Nom;
+                samouraiDB.Force = vm.Samourai.Force;
+                samouraiDB.Arme = null;
+                if (vm.IdSelectedArme.HasValue)
+                {
+                    samouraiDB.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
+                }
+                else
+                {
+                    samouraiDB.Arme = null;
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(samourai);
+            vm.Armes = db.Armes.ToList();
+
+            return View(vm);
         }
 
         // GET: Samourais/Delete/5

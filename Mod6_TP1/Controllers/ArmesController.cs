@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -79,11 +80,13 @@ namespace Mod6_TP1.Controllers
         // plus de détails, voir  https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nom,Degats")] Arme arme)
+        public ActionResult Edit(Arme arme)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(arme).State = EntityState.Modified;
+                var armeDB = db.Armes.Find(arme.Id);
+                armeDB.Nom = arme.Nom;
+                armeDB.Degats = arme.Degats;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -102,6 +105,19 @@ namespace Mod6_TP1.Controllers
             {
                 return HttpNotFound();
             }
+            try
+            {
+                var samourais = db.Samourais.Where(x => x.Arme.Id == id).ToList();
+                if (samourais.Any())
+                {
+                    ViewBag.Samourais = samourais.Select(x => x.Nom).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
             return View(arme);
         }
 
@@ -110,9 +126,22 @@ namespace Mod6_TP1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Arme arme = db.Armes.Find(id);
-            db.Armes.Remove(arme);
-            db.SaveChanges();
+            try
+            {
+                Arme arme = db.Armes.Find(id);
+                var samourais = db.Samourais.Where(x => x.Arme.Id == id).ToList();
+                foreach (var samourai in samourais)
+                {
+                    samourai.Arme = null;
+                }
+                db.Armes.Remove(arme);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
             return RedirectToAction("Index");
         }
 
