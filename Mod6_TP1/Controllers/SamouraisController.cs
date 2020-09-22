@@ -108,7 +108,7 @@ namespace Mod6_TP1.Controllers
                 var samouraiDB = db.Samourais.Find(vm.Samourai.Id);
                 samouraiDB.Nom = vm.Samourai.Nom;
                 samouraiDB.Force = vm.Samourai.Force;
-                samouraiDB.Arme = null;
+                var a = samouraiDB.Arme;
                 if (vm.IdSelectedArme.HasValue)
                 {
                     samouraiDB.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);

@@ -1,9 +1,8 @@
 ﻿namespace BO
 {
-    public class Arme
+    public class Arme : EntityDb
     {
-        public int Id { get; set; }
-        public string Nom { get; set; }
+
         public int Degats { get; set; }
     }
 }
