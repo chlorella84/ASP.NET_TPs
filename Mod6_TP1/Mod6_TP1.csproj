@@ -127,15 +127,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ArmesController.cs" />
+    <Compile Include="Controllers\ArtMartialsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SamouraisController.cs" />
     <Compile Include="Data\Mod6_TP1Context.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009220717542_MaMigration.cs" />
-    <Compile Include="Migrations\202009220717542_MaMigration.Designer.cs">
-      <DependentUpon>202009220717542_MaMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202009230707150_SecondMigration.cs" />
+    <Compile Include="Migrations\202009230707150_SecondMigration.Designer.cs">
+      <DependentUpon>202009230707150_SecondMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SamouraiVM.cs" />
@@ -187,6 +188,11 @@
     <Content Include="Views\Samourais\Details.cshtml" />
     <Content Include="Views\Samourais\Edit.cshtml" />
     <Content Include="Views\Samourais\Index.cshtml" />
+    <Content Include="Views\ArtMartials\Create.cshtml" />
+    <Content Include="Views\ArtMartials\Delete.cshtml" />
+    <Content Include="Views\ArtMartials\Details.cshtml" />
+    <Content Include="Views\ArtMartials\Edit.cshtml" />
+    <Content Include="Views\ArtMartials\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -212,8 +218,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009220717542_MaMigration.resx">
-      <DependentUpon>202009220717542_MaMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009230707150_SecondMigration.resx">
+      <DependentUpon>202009230707150_SecondMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

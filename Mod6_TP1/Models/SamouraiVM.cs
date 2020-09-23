@@ -12,6 +12,6 @@ namespace Mod6_TP1.Models
         public List<Arme> Armes { get; set; }
         public int? IdSelectedArme { get; set; }
         public List<ArtMartial> ArtsMartials { get; set; }
-        public List<int> IdSelectedArtsMartials { get; set; }
+        public List<int> IdSelectedArtsMartials { get; set; } = new List<int>();
     }
 }
