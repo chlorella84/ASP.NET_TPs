@@ -18,14 +18,6 @@
     @Html.HiddenFor(model => model.Samourai.Id)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Samourai.Force, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Samourai.Force, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Samourai.Force, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(model => model.Samourai.Nom, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.Samourai.Nom, new { htmlAttributes = new { @class = "form-control" } })
@@ -34,9 +26,24 @@
     </div>
 
     <div class="form-group">
+        @Html.LabelFor(model => model.Samourai.Force, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Samourai.Force, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Samourai.Force, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
         @Html.LabelFor(model => model.Samourai.Arme, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownListFor(model => model.IdSelectedArme, Model.Armes.Select(a => new SelectListItem { Text = a.Nom, Value = a.Id.ToString() }), "no weapon", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Samourai.ArtMartials, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.ListBoxFor(model => model.IdSelectedArtsMartials, Model.ArtsMartials.Select(a => new SelectListItem { Text = a.Nom, Value = a.Id.ToString() }), new { htmlAttributes = new { @class = "form-control" } })
         </div>
     </div>
 

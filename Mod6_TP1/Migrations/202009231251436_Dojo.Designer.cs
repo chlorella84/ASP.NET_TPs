@@ -7,13 +7,13 @@ namespace Mod6_TP1.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class SecondMigration : IMigrationMetadata
+    public sealed partial class Dojo : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SecondMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Dojo));
         
         string IMigrationMetadata.Id
         {
-            get { return "202009230707150_SecondMigration"; }
+            get { return "202009231251436_Dojo"; }
         }
         
         string IMigrationMetadata.Source

@@ -134,9 +134,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009230707150_SecondMigration.cs" />
-    <Compile Include="Migrations\202009230707150_SecondMigration.Designer.cs">
-      <DependentUpon>202009230707150_SecondMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202009231251436_Dojo.cs" />
+    <Compile Include="Migrations\202009231251436_Dojo.Designer.cs">
+      <DependentUpon>202009231251436_Dojo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SamouraiVM.cs" />
@@ -179,8 +179,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Armes\Create.cshtml" />
-    <Content Include="Views\Armes\Delete.cshtml" />
-    <Content Include="Views\Armes\Details.cshtml" />
     <Content Include="Views\Armes\Edit.cshtml" />
     <Content Include="Views\Armes\Index.cshtml" />
     <Content Include="Views\Samourais\Create.cshtml" />
@@ -190,9 +188,9 @@
     <Content Include="Views\Samourais\Index.cshtml" />
     <Content Include="Views\ArtMartials\Create.cshtml" />
     <Content Include="Views\ArtMartials\Delete.cshtml" />
-    <Content Include="Views\ArtMartials\Details.cshtml" />
     <Content Include="Views\ArtMartials\Edit.cshtml" />
     <Content Include="Views\ArtMartials\Index.cshtml" />
+    <Content Include="Views\Armes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -218,8 +216,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009230707150_SecondMigration.resx">
-      <DependentUpon>202009230707150_SecondMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009231251436_Dojo.resx">
+      <DependentUpon>202009231251436_Dojo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

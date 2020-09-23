@@ -21,20 +21,7 @@ namespace Mod6_TP1.Controllers
             return View(db.ArtMartials.ToList());
         }
 
-        // GET: ArtMartials/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ArtMartial artMartial = db.ArtMartials.Find(id);
-            if (artMartial == null)
-            {
-                return HttpNotFound();
-            }
-            return View(artMartial);
-        }
+      
 
         // GET: ArtMartials/Create
         public ActionResult Create()

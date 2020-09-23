@@ -42,6 +42,7 @@ namespace Mod6_TP1.Controllers
         {
             var vm = new SamouraiVM();
             vm.Armes = db.Armes.ToList();
+            vm.ArtsMartials = db.ArtMartials.ToList();
             return View(vm);
         }
 
@@ -58,12 +59,18 @@ namespace Mod6_TP1.Controllers
                 {
                     vm.Samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
                 }
+                if (vm.IdSelectedArtsMartials.Count != 0)
+                {
+                    vm.Samourai.ArtMartials = db.ArtMartials.Where(x => vm.IdSelectedArtsMartials.Contains(x.Id)).ToList();
+
+                }
 
                 db.Samourais.Add(vm.Samourai);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             vm.Armes = db.Armes.ToList();
+            vm.ArtsMartials = db.ArtMartials.ToList();
             return View(vm);
         }
 
@@ -81,6 +88,7 @@ namespace Mod6_TP1.Controllers
             }
             var vm = new SamouraiVM();
             vm.Armes = db.Armes.ToList();
+            vm.ArtsMartials = db.ArtMartials.ToList();
             vm.Samourai = samourai;
 
             if (samourai.Arme != null)
@@ -90,6 +98,15 @@ namespace Mod6_TP1.Controllers
             else
             {
                 vm.IdSelectedArme = null;
+            }
+
+            if (samourai.ArtMartials.Count !=0)
+            {
+                vm.IdSelectedArtsMartials = samourai.ArtMartials.Select(x => x.Id).ToList(); ;
+            }
+            else
+            {
+                vm.ArtsMartials = null;
             }
 
 
@@ -108,7 +125,11 @@ namespace Mod6_TP1.Controllers
                 var samouraiDB = db.Samourais.Find(vm.Samourai.Id);
                 samouraiDB.Nom = vm.Samourai.Nom;
                 samouraiDB.Force = vm.Samourai.Force;
+
+                //méthode brute pour palier un souci de lazy loading
                 var a = samouraiDB.Arme;
+                var b = samouraiDB.ArtMartials;
+
                 if (vm.IdSelectedArme.HasValue)
                 {
                     samouraiDB.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
@@ -118,10 +139,21 @@ namespace Mod6_TP1.Controllers
                     samouraiDB.Arme = null;
                 }
 
+                if (vm.ArtsMartials != null)
+                {
+                    samouraiDB.ArtMartials = db.ArtMartials.Where(x => vm.IdSelectedArtsMartials.Contains(x.Id)).ToList();
+                   
+                }
+                else
+                {
+                    samouraiDB.ArtMartials = null;
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             vm.Armes = db.Armes.ToList();
+            vm.ArtsMartials = db.ArtMartials.ToList();
 
             return View(vm);
         }

@@ -22,21 +22,6 @@ namespace Mod6_TP1.Controllers
             return View(db.Armes.ToList());
         }
 
-        // GET: Armes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Arme arme = db.Armes.Find(id);
-            if (arme == null)
-            {
-                return HttpNotFound();
-            }
-            return View(arme);
-        }
-
         // GET: Armes/Create
         public ActionResult Create()
         {
