@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace BO
 		}
 
 		private string nom;
-
+		[DisplayName("Name")]
 		public string Nom
 		{
 			get { return nom; }

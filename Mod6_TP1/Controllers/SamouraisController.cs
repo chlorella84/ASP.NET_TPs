@@ -41,7 +41,7 @@ namespace Mod6_TP1.Controllers
         public ActionResult Create()
         {
             var vm = new SamouraiVM();
-            vm.Armes = db.Armes.ToList();
+            vm.Armes = getArmesDisponibles(vm);
             vm.ArtsMartials = db.ArtMartials.ToList();
             return View(vm);
         }
@@ -57,7 +57,7 @@ namespace Mod6_TP1.Controllers
             {
                 if(vm.IdSelectedArme.HasValue)
                 {
-                    vm.Samourai.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
+                    vm.Samourai.Arme = getArmesDisponibles(vm).FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
                 }
                 if (vm.IdSelectedArtsMartials.Count != 0)
                 {
@@ -69,7 +69,7 @@ namespace Mod6_TP1.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            vm.Armes = db.Armes.ToList();
+            vm.Armes = getArmesDisponibles(vm);
             vm.ArtsMartials = db.ArtMartials.ToList();
             return View(vm);
         }
@@ -87,7 +87,9 @@ namespace Mod6_TP1.Controllers
                 return HttpNotFound();
             }
             var vm = new SamouraiVM();
-            vm.Armes = db.Armes.ToList();
+            var armeActuel = samourai.Arme;
+            vm.Armes = getArmesDisponibles(vm);
+            vm.Armes.Add(armeActuel);
             vm.ArtsMartials = db.ArtMartials.ToList();
             vm.Samourai = samourai;
 
@@ -122,41 +124,61 @@ namespace Mod6_TP1.Controllers
         {
             if (ModelState.IsValid)
             {
-                var samouraiDB = db.Samourais.Find(vm.Samourai.Id);
-                samouraiDB.Nom = vm.Samourai.Nom;
-                samouraiDB.Force = vm.Samourai.Force;
+                //eager loading
+                var currentSamurai = db.Samourais.Include(x => x.Arme).Include(x => x.ArtMartials).FirstOrDefault(x => x.Id == vm.Samourai.Id);
+              
+                currentSamurai.Nom = vm.Samourai.Nom;
+                currentSamurai.Force = vm.Samourai.Force;
 
-                //méthode brute pour palier un souci de lazy loading
-                var a = samouraiDB.Arme;
-                var b = samouraiDB.ArtMartials;
+                Arme armeActuel = currentSamurai.Arme;
+
+                var armesDisponibles = getArmesDisponibles(vm);
+                armesDisponibles.Add(armeActuel);
 
                 if (vm.IdSelectedArme.HasValue)
                 {
-                    samouraiDB.Arme = db.Armes.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
+                    currentSamurai.Arme = armesDisponibles.FirstOrDefault(x => x.Id == vm.IdSelectedArme.Value);
                 }
                 else
                 {
-                    samouraiDB.Arme = null;
+                    currentSamurai.Arme = null;
                 }
 
                 if (vm.ArtsMartials != null)
                 {
-                    samouraiDB.ArtMartials = db.ArtMartials.Where(x => vm.IdSelectedArtsMartials.Contains(x.Id)).ToList();
+                    currentSamurai.ArtMartials = db.ArtMartials.Where(x => vm.IdSelectedArtsMartials.Contains(x.Id)).ToList();
                    
                 }
                 else
                 {
-                    samouraiDB.ArtMartials = null;
+                    currentSamurai.ArtMartials = null;
                 }
 
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            vm.Armes = db.Armes.ToList();
+            vm.Armes = getArmesDisponibles(vm);
             vm.ArtsMartials = db.ArtMartials.ToList();
 
             return View(vm);
         }
+
+        private List<Arme> getArmesDisponibles(SamouraiVM vm)
+        {
+            var allWeapons = db.Armes.ToList();
+            vm.Armes = new List<Arme>();
+            foreach (var item in allWeapons)
+            {
+                if (db.Samourais.Where(x => x.Arme.Id == item.Id).ToList().Count() == 0)
+                {
+                    vm.Armes.Add(item);
+                }
+            }
+ 
+            return vm.Armes;
+        }
+
+
 
         // GET: Samourais/Delete/5
         public ActionResult Delete(int? id)

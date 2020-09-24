@@ -35,13 +35,13 @@
             @if (Model.Arme != null)
             {
                 @Html.DisplayFor(model => model.Arme.Nom)<br />
-                <bold> Degat: </bold> @Html.DisplayFor(model => model.Arme.Degats)<br />
+                <bold> Damages: </bold> @Html.DisplayFor(model => model.Arme.Degats)<br />
             }
 
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ArtMartials)
+            Martial Arts
         </dt>
 
         <dd>
@@ -54,6 +54,14 @@
                 }
 
             }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Potentiel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Potentiel)
         </dd>
 
     </dl>
