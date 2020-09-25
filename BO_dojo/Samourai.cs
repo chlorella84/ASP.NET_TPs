@@ -11,7 +11,7 @@ namespace BO
         [DisplayName("Weapon")]
         public virtual Arme Arme { get; set; }
         [DisplayName("Martial Arts")]
-        public virtual List<ArtMartial> ArtMartials { get; set; }
+        public virtual List<ArtMartial> ArtMartials { get; set; } = new List<ArtMartial>();
 
         [NotMapped]
         private int potentiel;

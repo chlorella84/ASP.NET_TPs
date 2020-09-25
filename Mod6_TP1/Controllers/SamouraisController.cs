@@ -87,29 +87,26 @@ namespace Mod6_TP1.Controllers
                 return HttpNotFound();
             }
             var vm = new SamouraiVM();
-            var armeActuel = samourai.Arme;
+            
             vm.Armes = getArmesDisponibles(vm);
-            vm.Armes.Add(armeActuel);
+         
             vm.ArtsMartials = db.ArtMartials.ToList();
             vm.Samourai = samourai;
 
             if (samourai.Arme != null)
             {
+                var armeActuel = samourai.Arme;
+                vm.Armes.Add(armeActuel);
+
                 vm.IdSelectedArme = samourai.Arme.Id;
             }
-            else
-            {
-                vm.IdSelectedArme = null;
-            }
+
 
             if (samourai.ArtMartials.Count !=0)
             {
                 vm.IdSelectedArtsMartials = samourai.ArtMartials.Select(x => x.Id).ToList(); ;
             }
-            else
-            {
-                vm.ArtsMartials = null;
-            }
+
 
 
             return View(vm);
@@ -144,7 +141,7 @@ namespace Mod6_TP1.Controllers
                     currentSamurai.Arme = null;
                 }
 
-                if (vm.ArtsMartials != null)
+                if (vm.IdSelectedArtsMartials != null)
                 {
                     currentSamurai.ArtMartials = db.ArtMartials.Where(x => vm.IdSelectedArtsMartials.Contains(x.Id)).ToList();
                    
