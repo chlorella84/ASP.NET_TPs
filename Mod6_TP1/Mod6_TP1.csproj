@@ -134,9 +134,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202009231251436_Dojo.cs" />
-    <Compile Include="Migrations\202009231251436_Dojo.Designer.cs">
-      <DependentUpon>202009231251436_Dojo.cs</DependentUpon>
+    <Compile Include="Migrations\202009250815364_MaMigration.cs" />
+    <Compile Include="Migrations\202009250815364_MaMigration.Designer.cs">
+      <DependentUpon>202009250815364_MaMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\SamouraiVM.cs" />
@@ -216,8 +216,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202009231251436_Dojo.resx">
-      <DependentUpon>202009231251436_Dojo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202009250815364_MaMigration.resx">
+      <DependentUpon>202009250815364_MaMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
